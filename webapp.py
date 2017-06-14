@@ -1,5 +1,6 @@
 from flask import Flask, render_template
-import time
+import teradata
+
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
@@ -7,12 +8,14 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 @app.route("/")
 @app.route("/index")
 def index():
+
     series = [
         {
             "name": 'Sample Query 1 - Success',
             "color": 'rgba(71, 206, 244, 0.5)',
             "data": [
-                ["2017,06,13,00,05,02", 10.0]
+                []
+                #["2017,06,13,00,05,02", 10.0]
                 # [Date.UTC(2017, 06, 13, 00, 05, 02), 10.0],
                 # [Date.UTC(2017, 06, 13, 01, 10, 02), 8.1],
                 # [Date.UTC(2017, 06, 13, 02, 00, 39), 9.5],
@@ -28,6 +31,7 @@ def index():
             "name": "Sample Query 2 - Fail",
             "color": 'rgba(255, 0, 0, 0.5)',
             "data": [
+                [2, 2]
                 # [Date.UTC(2017, 06, 13, 09, 12, 32), 20.2],
                 # [Date.UTC(2017, 06, 14, 07, 05, 02), 25.2],
                 # [Date.UTC(2017, 06, 15, 17, 05, 02), 31.2]
@@ -38,6 +42,18 @@ def index():
 
 
 if __name__ == "__main__":
+    udaExec = teradata.UdaExec(appName="adjfkl", version="1.0")
+    con = udaExec.connect(method="odbc",
+                          system="diablo",
+                          username="HACKATHON_tl151006",
+                          password="HACKATHON_tl151006")
+
+    rows = con.execute(
+        ("select * from HACKATHON_ACCESS.sar_ru where siteid = 'DDWH03' "
+         "and CAST(CollectTimeStamp as DATE FORMAT 'YYYY-MM-DD') in "
+         "('2016-12-24', '2016-12-25', '2016-12-26', '2016-12-27');"))
+    for row in rows:
+        timestamp = row[1]
     app.run(debug=True, host='127.0.0.1', port=8081, passthrough_errors=True)
 
     #1, 2
