@@ -50,5 +50,5 @@ button:hover {
 button:active {
     background: none repeat scroll 0 0 #D0D0D0;
     box-shadow: 0 0 1px 1px #E3E3E3 inset;
-    color: #000000;
+    color: #000001;
 }
