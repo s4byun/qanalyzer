@@ -7,17 +7,24 @@ $(document).ready(function() {
 					height: 400
 	    },
 	    xAxis: {
+				type: 'datetime',
 	        "title": {
 	            enabled: true,
-							type: 'datetime',
 	            text: "Time"
 	        },
+					dateTimeLabelFormats: {
+						millisecond: '%H:%M:%S.%L',
+						second: '%H:%M:%S',
+						minute: '%H:%M',
+						hour: '%H:%M',
+						day: '%e. %b',
+						week: '%e. %b',
+						month: '%b \'%y',
+						year: '%Y'
+					},
 	        startOnTick: true,
 	        endOnTick: true,
-	        showLastLabel: true,
-					formatter: function() {
-						
-					}
+	        showLastLabel: true
 	    },
 	    yAxis: {
 	        title: {
@@ -37,7 +44,7 @@ $(document).ready(function() {
 			plotOptions: {
         scatter: {
             marker: {
-                radius: 5,
+                radius: 4,
                 states: {
                     hover: {
                         enabled: true,
