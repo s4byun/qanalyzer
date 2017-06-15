@@ -4,30 +4,26 @@ $(document).ready(function() {
 			title: {
 					text: "Query Analyzer"
 			},
+        tooltip: {
+                formatter: function() {
+                    return  '<b>'+this.series.name+' </b>' +
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x)
+                    + ' date, ' + this.y + ' run duration';
+                }
+        },
 	    chart: {
 	        type: 'scatter',
 	        zoomType: 'xy',
 					height: 400
 	    },
 	    xAxis: {
-				type: 'datetime',
-	        "title": {
-	            enabled: true,
-	            text: "Time"
-	        },
-					dateTimeLabelFormats: {
-						millisecond: '%H:%M:%S.%L',
-						second: '%H:%M:%S',
-						minute: '%H:%M',
-						hour: '%H:%M',
-						day: '%e. %b',
-						week: '%e. %b',
-						month: '%b \'%y',
-						year: '%Y'
-					},
-	        startOnTick: true,
-	        endOnTick: true,
-	        showLastLabel: true
+			type: 'datetime',
+            labels: {
+                formatter: function() {
+                    //alert(Highcharts.dateFormat('%a %d %b', this.value));
+                    return Highcharts.dateFormat('%a %d %b %H %M', this.value);
+                }
+            }
 	    },
 	    yAxis: {
 	        title: {
@@ -62,10 +58,7 @@ $(document).ready(function() {
                     }
                 }
             },
-            tooltip: {
-                headerFormat: '<b>{series.name}</b><br>',
-                pointFormat: '{point.x} , {point.y}'
-            }
+            
         }
     },
 		series: series
