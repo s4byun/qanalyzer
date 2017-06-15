@@ -1,3 +1,5 @@
+let dbsc_file = "../../"
+
 $(document).ready(function() {
 	$('#scatterplot').highcharts({
 	    chartID: "scatter1",
@@ -14,13 +16,13 @@ $(document).ready(function() {
 	    chart: {
 	        type: 'scatter',
 	        zoomType: 'xy',
+					width: 1000,
 					height: 400
 	    },
 	    xAxis: {
 			type: 'datetime',
             labels: {
                 formatter: function() {
-                    //alert(Highcharts.dateFormat('%a %d %b', this.value));
                     return Highcharts.dateFormat('%a %d %b %H %M', this.value);
                 }
             }
@@ -34,10 +36,8 @@ $(document).ready(function() {
 		        layout: 'vertical',
 		        align: 'right',
 		        verticalAlign: 'top',
-		        x: 100,
-		        y: 70,
-		        floating: true,
-		        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+		        floating: false,
+		        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFF',
 		        borderWidth: 1
 	    },
 			plotOptions: {
@@ -58,8 +58,14 @@ $(document).ready(function() {
                     }
                 }
             },
-            
-        }
+        },
+				series: {
+					events: {
+						click: function(e) {
+							
+						}
+					}
+				}
     },
 		series: series
 	});
